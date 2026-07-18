@@ -1,0 +1,32 @@
+<div class="
+    flex
+    px-3
+    py-8
+    flex-col
+    space-y-3
+    w-[500px]
+    fixed
+    left-0
+    top-0
+    h-screen
+    bg-white
+    z-1
+    overflow-y-auto
+    "
+>
+    <%= component "cart_info", cart: current_cart %>
+    <%= button_to "Clear",
+        clear_cart_path,
+        class: "text-red-500 underline cursor-pointer",
+        data: {
+        turbo_confirm: "Are you sure?",
+        turbo_stream: true
+        },
+        method: :delete %>
+    <span>Cart items:</span>
+    <div id="cart_items" class="flex flex-col gap-3">
+    <% current_cart.cart_items.each do |cart_item| %>
+        <%= cart_item_for cart_item %>
+    <% end %>
+    </div>
+</div>

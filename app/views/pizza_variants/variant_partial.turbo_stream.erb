@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@variant.pizza) do %>
+    <%= render partial: "pizza_variants/card", locals: { variant: @variant } %>
+<% end %>

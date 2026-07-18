@@ -1,0 +1,17 @@
+<%= form_tag root_path,
+    method: :get,
+    data: {
+        controller: "pizza-filters",
+        pizza_filters_target: "form"
+    } do |f| %>
+    <select name="sort_by" data-action="pizza-filters#submitForm">
+        <%= options_for_select(
+            price_select_items,
+            pizza_filters.sort_by) %>
+    </select>
+    <select name="sort" data-action="pizza-filters#submitForm">
+        <%= options_for_select(
+            sort_by_select_items,
+            pizza_filters.sort) %>
+    </select>
+<% end %>

@@ -1,0 +1,26 @@
+<div class="flex">
+    <%= button_to cart_item_path,
+        class: "cart-button-left p-2",
+        form: {
+            data: { turbo_stream: true }
+        },
+        method: :delete,
+        params: {
+            cart_itemable_type: cart_itemable_type,
+            cart_itemable_id: cart_itemable_id
+        } do %>
+        <%= quantity > 1 ? icon("minus", class: "size-4") : icon("trash", class: "size-4") %>
+    <% end %>
+    <span class="cart-button-mid p-2 text-xs"><%= quantity %></span>
+    <%= button_to cart_item_path,
+        class: "cart-button-right p-2",
+        form: {
+            data: { turbo_stream: true }
+        },
+        params: {
+            cart_itemable_type: cart_itemable_type,
+            cart_itemable_id: cart_itemable_id
+        } do %>
+        <%= icon("plus", class: "size-4") %>
+    <% end %>
+</div>

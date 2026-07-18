@@ -1,0 +1,11 @@
+<%= button_to icon("trash"),
+    cart_items_destroy_all_path,
+    class: "cursor-pointer text-red-500",
+    form: {
+        data: { turbo_stream: true }
+    },
+    method: :delete,
+    params: {
+        cart_itemable_type: cart_itemable_type,
+        cart_itemable_id: cart_itemable_id
+    } %>

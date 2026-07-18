@@ -1,0 +1,48 @@
+<div
+    class="product-card"
+    data-controller="drink-card"
+    data-drink-card-drink-variant-id-value="<%= record.drink_variants.first.id %>"
+>
+    <div class="product-card__header">
+        <div class="my-12">
+            <%= component "lazy_image", image: record.image %>
+        </div>
+    </div>
+    <div class="product-card__body">
+        <div class="flex items-baseline justify-between grow">
+            <span class="text-2xl font-semibold mb-8 block"><%= record.name %></span>
+        </div>
+        <div class="space-y-3">
+            <div class="flex gap-2 w-full">
+                <% record.drink_variants.each do |drink_variant| %>
+                <% is_active = drink_variant.id == record.drink_variants.first.id %>
+                    <%= button_tag drink_variant.name,
+                        class: "variant-button #{'bg-sky-200' if is_active}",
+                        data: {
+                            drink_card_target: "variantButton",
+                            action: "drink-card#variantButtonClick",
+                            variant_id: drink_variant.id
+                        } %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="product-card__footer">
+        <% record.drink_variants.each do |variant| %>
+            <div
+                class="flex items-center justify-between"
+                data-drink-card-target="variant"
+                data-variant-id="<%= variant.id %>"
+                style="display: none;"
+            >
+                <span class="text-xl font-semibold">
+                    <%= variant.price %> UAH
+                </span>
+                <%= component "cart_item_button",
+                    cart_itemable_type: variant.class.name,
+                    cart_itemable_id: variant.id,
+                    quantity: current_cart.quantity_for(variant) %>
+            </div>
+        <% end %>
+    </div>
+</div>

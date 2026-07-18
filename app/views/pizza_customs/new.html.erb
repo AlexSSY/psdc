@@ -1,0 +1,114 @@
+<div
+    class="mx-auto max-w-7xl"
+    style=""
+    data-controller="pizza-editor"
+>
+    <%= form_tag pizza_custom_path,
+        method: :post,
+        data: {
+            pizza_editor_target: :form,
+            turbo_stream: true
+        } do %>
+        <%= pizza_editor_field(@pizza_custom, :pizza_size_id) %>
+        <%= pizza_editor_field(@pizza_custom, :pizza_dough_id) %>
+        <%= pizza_editor_field(@pizza_custom, :pizza_crust_id) %>
+        <% @pizza_custom.pizza_custom_ingredients.each do |ingredient| %>
+            <%= hidden_field_tag """
+            pizza_custom_ingredients_attributes[pizza_top_id#{}]
+            """ %>
+        <% end %>
+    <% end %>
+    <div class="flex gap-10 items-start">
+        <div class="w-[420px] shrink-0">
+            <%= image_tag @pizza_custom.constructor_image %>
+        </div>
+        <div class="flex-1 min-w-0 space-y-8">
+            <span class="font-bold text-2xl"><%= @pizza_custom.name %></span>
+            <div class="flex items-center justify-between">
+                <span class="text-xl font-semibold"><%= @pizza_custom.price %> UAH</span>
+                <%= component "cart_item_button",
+                    cart_itemable_type: @pizza_custom.class.name,
+                    cart_itemable_id: @pizza_custom.id,
+                    quantity: current_cart.quantity_for(@pizza_custom) %>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <span class="font-semibold">Size</span>
+                <div class="flex items-center space-x-2">
+                    <% @pizza_sizes.each do |pizza_size| %>
+                        <% is_active = pizza_size == @pizza_custom.pizza_size %>
+                        <%= button_tag pizza_size.name,
+                            class: "variant-button #{'bg-sky-200' if is_active}",
+                            data: {
+                                size_id: pizza_size.id
+                            } %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <span class="font-semibold">Dough</span>
+                <div class="flex items-center space-x-2">
+                    <% @pizza_doughs.each do |pizza_dough| %>
+                        <% is_active = pizza_dough == @pizza_custom.pizza_dough %>
+                        <%= button_tag pizza_dough.name,
+                            class: "variant-button #{'bg-sky-200' if is_active}",
+                            data: {
+                                dough_id: pizza_dough.id
+                            } %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <span class="font-semibold">Crust</span>
+                <div class="flex items-center space-x-2">
+                    <% @pizza_crusts.each do |pizza_crust| %>
+                        <% is_active = pizza_crust == @pizza_custom.pizza_crust %>
+                        <%= button_tag pizza_crust.name,
+                            class: "variant-button #{'bg-sky-200' if is_active}",
+                            data: {
+                                crust_id: pizza_crust.id
+                            } %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <span class="font-semibold">Pizza ingredients</span>
+                <div class="flex gap-3 overflow-x-auto w-full">
+                    <% @pizza_custom.pizza_custom_ingredients.each do |pizza_ingredient| %>
+                        <div class="p-3 flex flex-col items-center space-y-2">
+                            <div class="size-16 flex items-center justify-center">
+                                <%= image_tag pizza_ingredient.image %>
+                            </div>
+                            <span class="text-sm"><%= pizza_ingredient.name %></span>
+                            <div class="flex justify-between items-center bg-zinc-300 rounded-xl p-2 space-x-6">
+                                <button><%= icon "trash" %></button>
+                                <span><%= pizza_ingredient.quantity %></span>
+                                <button><%= icon "plus" %></button>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+            <% @pizza_top_categories.each do |pizza_top_category| %>
+                <div class="flex flex-col space-y-2">
+                    <span class="font-semibold"><%= pizza_top_category.name %></span>
+                    <div class="flex gap-3 overflow-x-auto w-full">
+                        <% pizza_top_category.pizza_tops.each do |pizza_top| %>
+                            <% next if @pizza_custom.pizza_custom_ingredients.pluck(:pizza_top_id).include? pizza_top.id %>
+                            <div class="p-3 flex flex-col items-center space-y-2">
+                                <div class="size-16 flex items-center justify-center">
+                                    <%= image_tag pizza_top.image %>
+                                </div>
+                                <span class="text-sm"><%= pizza_top.name %></span>
+                                <div class="flex justify-between items-center bg-zinc-300 rounded-xl p-2 space-x-6">
+                                    <button><%= icon "trash" %></button>
+                                    <span>0</span>
+                                    <button><%= icon "plus" %></button>
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

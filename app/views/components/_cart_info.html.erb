@@ -1,0 +1,4 @@
+<%= turbo_frame_tag dom_id(cart) do %>
+    <%= tag.span "Current cart id: #{cart.id}", class: "block" %>
+    <%= tag.span "Total price: #{cart.price}", class: "block" %>
+<% end %>

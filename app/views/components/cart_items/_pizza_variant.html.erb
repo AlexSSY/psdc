@@ -1,0 +1,37 @@
+<% pizza_variant = PizzaVariant.includes(:pizza_tops)
+    .find(cart_item.cart_itemable_id) %>
+
+<%= turbo_frame_tag dom_id(cart_item) do %>
+    <div class="flex items-center justify-between space-x-3 p-3">
+        <div class="grow flex items-center space-x-2">
+            <%= image_tag pizza_variant.constructor_image.variant(:thumb),
+                class: "object-fill" %>
+            <div class="flex grow flex-col">
+                <%= tag.span pizza_variant.name %>
+                <div class="flex space-x-2">
+                    <% if pizza_variant.pizza_crust.present? %>
+                        <%= tag.span pizza_variant.pizza_crust&.name,
+                            class: "text-xs text-red-600" %>
+                    <% end %>
+                    <%= tag.span pizza_variant.pizza_dough.name,
+                        class: "text-xs text-sky-300" %>
+                    <%= tag.span pizza_variant.pizza_size.name,
+                        class: "text-xs" %>
+                </div>
+                <div class="flex space-x-2 items-baseline">
+                    <%= link_to "Replace", "#", class: "text-xs text-sky-500 hover:underline" %>
+                    <span class="text-xs text-zinc-500">
+                        <%= pizza_variant.pizza_tops.pluck(:name).join(", ") %>
+                    </span>
+                </div>
+                <div class="flex mt-1 items-center justify-between">
+                    <%= component "cart_items/shared/controls",
+                        cart_itemable_type: cart_item.cart_itemable_type,
+                        cart_itemable_id: cart_item.cart_itemable_id,
+                        quantity: cart_item.quantity %>
+                    <span class="font-semibold"><%= cart_item.total_price %> UAH</span>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>

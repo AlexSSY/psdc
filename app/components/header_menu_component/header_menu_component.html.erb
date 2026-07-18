@@ -1,0 +1,5 @@
+<div class="flex gap-3">
+    <% menu_items.each do |menu_item| %>
+        <%= link_to menu_item.title, menu_item.path, class: classes(menu_item) %>
+    <% end %>
+</div>

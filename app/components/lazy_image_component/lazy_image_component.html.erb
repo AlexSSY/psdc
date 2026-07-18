@@ -1,0 +1,15 @@
+<div
+data-controller="lazy-image"
+class="relative aspect-video"
+>
+    <div
+    data-lazy-image-target="placeholder"
+    class="absolute inset-0 animate-pulse
+    bg-zinc-200 rounded-t-xl"
+    ></div>
+    <%= image_tag result_image,
+        data: {
+            lazy_image_target: "image", action: "load->lazy-image#loaded"
+        },
+        class: "opacity-0 transition-opacity duration-300 w-full h-full" %>
+</div>

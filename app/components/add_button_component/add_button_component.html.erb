@@ -1,0 +1,4 @@
+<%= button_to cart_item_path, class: button_class, form: { data: { turbo_stream: true } }, params: turbo_params do %>
+    <%= helpers.icon "shopping-cart", class: "size-6 text-white" %>
+    <span>Add</span>
+<% end %>

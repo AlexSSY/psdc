@@ -1,0 +1,9 @@
+<%= helpers.turbo_frame_tag k(cart_itemable).dom_id do %>
+
+    <% if in_cart? %>
+        <%= render ItemControlsComponent.new(cart_itemable:, quantity:) %>
+    <% else %>
+        <%= render AddButtonComponent.new(cart_itemable:) %>
+    <% end %>
+
+<% end %>

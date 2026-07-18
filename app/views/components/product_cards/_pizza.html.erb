@@ -1,0 +1,98 @@
+<div
+    class="product-card"
+    data-controller="pizza-card"
+    data-pizza-card-pizza-size-id-value="<%= record.pizza_size_id %>"
+    data-pizza-card-pizza-dough-id-value="<%= record.pizza_dough_id %>"
+    data-pizza-card-pizza-crust-id-value="<%= record.pizza_crust_id %>"
+>
+    <div class="product-card__header">
+        <%= link_to pizza_custom_path_for(record.pizza_variants.first) do %>
+            <%= component "lazy_image", image: record.image %>
+        <% end %>
+    </div>
+    <div class="product-card__body">
+        <div class="flex items-baseline justify-between grow">
+            <span class="text-2xl font-semibold mb-8 block"><%= record.name %></span>
+            <div class="relative inline-block group">
+                <span class="block text-xs group text-zinc-600 bg-zinc-100 px-3 
+                    py-1 rounded-full cursor-pointer select-none">Ingredients</span>
+                <div class="absolute left-0 top-full mt-2 hidden group-hover:block
+                            rounded-md bg-gray-900 text-white text-sm p-2 shadow-lg z-50">
+                    <% record.ingredients_list.split(",").each do |ingredient_name| %>
+                        <p class="whitespace-nowrap"><%= ingredient_name %></p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-3">
+            <select
+                name="pizza_size_id"
+                class="w-full border rounded border-zinc-300 px-3 py-1"
+                data-action="change->pizza-card#pizzaSizeSelectChange"
+            >
+                <% @pizza_sizes.each do |pizza_size| %>
+                    <option
+                        value="<%= pizza_size.id %>"
+                        <%= 'selected' if pizza_size.id == record.pizza_size_id %>
+                    >
+                        <%= pizza_size.name %>
+                    </option>
+                <% end %>
+            </select>
+            <div class="flex gap-2 w-full">
+                <% @pizza_doughs.each do |pizza_dough| %>
+                    <% is_active = pizza_dough.name == record.pizza_dough_name %>
+                    <%= button_tag pizza_dough.name,
+                        class: "variant-button #{'bg-sky-200' if is_active}",
+                        data: {
+                            pizza_card_target: "dough",
+                            action: "pizza-card#doughButtonClick",
+                            dough_id: pizza_dough.id
+                        } %>
+                <% end %>
+            </div>
+            <div class="flex gap-2 w-full">
+                <% is_active = record.pizza_crust_id == nil %>
+                <%= button_tag "Without crust",
+                    class: "variant-button #{'bg-sky-200' if is_active}",
+                    data: {
+                        pizza_card_target: "crust",
+                        action: "pizza-card#crustButtonClick",
+                        crust_id: 0
+                    } %>
+                <% @pizza_crusts.each do |pizza_crust| %>
+                    <% is_active = pizza_crust.name == record.pizza_crust_name %>
+                    <%= button_tag pizza_crust.name,
+                        class: "variant-button #{'bg-sky-200' if is_active}",
+                        data: {
+                            pizza_card_target: "crust",
+                            action: "pizza-card#crustButtonClick",
+                            crust_id: pizza_crust.id
+                        } %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="product-card__footer">
+        <% variant = record.pizza_variants.first %>
+        <div
+            class="space-y-3"
+            data-pizza-card-target="variant"
+            data-variant="<%= variant.js_data_variant %>"
+            style="display: none;"
+        >
+            <%= link_to "Replace ingredients",
+                pizza_custom_path_for(variant),
+                class: "border border-red-700 px-3 py-2 rounded-full text-center block" %>
+            <div class="flex items-center justify-between">
+                <span class="text-xl font-semibold">
+                    <%= variant.price %> UAH
+                </span>
+                <%= component "cart_item_button",
+                    cart_itemable_type: variant.class.name,
+                    cart_itemable_id: variant.id,
+                    quantity: variant.quantity %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<% @cart_items.each do |cart_item| %>
+    <%= turbo_stream.replace k(cart_item.cart_itemable).dom_id do %>
+        <%= render CartButtonComponent.new(
+          cart_itemable: cart_item.cart_itemable,
+          quantity: 0
+     ) %>
+    <% end %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(current_cart) do %>
+     <%= component "cart_info", cart: current_cart %>
+<% end %>
+
+<%= turbo_stream.replace "cart_items" do %>
+     <div id="cart_items" class="flex flex-col gap-3"></div>
+<% end %>

@@ -1,0 +1,52 @@
+<div class="flex w-full">
+    <div class="flex-none">
+        <%= image_tag @base_pizza.constructor_image %>
+    </div>
+    <div class="flex-1 space-y-8 flex flex-col">
+        <span class="font-bold text-2xl"><%= @base_pizza.name %></span>
+        <div class="flex items-center justify-between">
+            <span class="text-xl font-semibold"><%= @base_pizza.total_price %> UAH</span>
+            <%= component "add_to_cart_button" %>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <span class="font-semibold">Size</span>
+            <div class="flex items-center space-x-2">
+                <% @base_pizza.pizza_size.class.all.each do |pizza_size| %>
+                    <%= component "variant_button", text: pizza_size.name, is_active: pizza_size == @base_pizza.pizza_size %>
+                <% end %>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <span class="font-semibold">Dough</span>
+            <div class="flex items-center space-x-2">
+                <% @base_pizza.pizza_dough.class.all.each do |pizza_dough| %>
+                    <%= component "variant_button", text: pizza_dough.name, is_active: pizza_dough == @base_pizza.pizza_dough %>
+                <% end %>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <span class="font-semibold">Crust</span>
+            <div class="flex items-center space-x-2">
+                <% @base_pizza.pizza_crust.class.all.each do |pizza_crust| %>
+                    <%= component "variant_button", text: pizza_crust.name, is_active: pizza_crust == @base_pizza.pizza_crust %>
+                <% end %>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-2">
+            <span class="font-semibold">Pizza ingredients</span>
+            <div class="flex items-center overflow-x-auto">
+                <% @base_pizza.pizza_ingredients.each do |pizza_ingredient| %>
+                    <div class="p-3 flex flex-col items-center space-y-2">
+                        <div class="size-16 bg-amber-500"></div>
+                        <span class="text-sm"><%= pizza_ingredient.name %></span>
+                        <div class="flex justify-between items-center bg-zinc-300 rounded-xl p-2 space-x-6">
+                            <button><%= icon "trash" %></button>
+                            <span><%= pizza_ingredient.quantity %></span>
+                            <button><%= icon "plus" %></button>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

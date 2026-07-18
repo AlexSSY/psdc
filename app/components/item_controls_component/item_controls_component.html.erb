@@ -1,0 +1,17 @@
+<div class="flex items-center">
+    <%= helpers.delete_button_to cart_item_path,
+        class: "px-4 py-4 rounded-l-xl bg-zinc-100 cursor-pointer hover:text-orange-500",
+        params: turbo_params do %>
+        <%= decrease_icon %>
+    <% end %>
+    
+    <span class="px-4 py-4 bg-zinc-100">
+        <%= quantity %>
+    </span>
+    
+    <%= helpers.post_button_to cart_item_path,
+        class: "px-4 py-4 rounded-r-xl bg-zinc-100 cursor-pointer hover:text-orange-500",
+        params: turbo_params do %>
+        <%= helpers.icon("plus") %>
+    <% end %>
+</div>

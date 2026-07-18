@@ -1,0 +1,10 @@
+<%= turbo_stream.replace k(@cart_itemable).dom_id do %>
+     <%= render CartButtonComponent.new(
+          cart_itemable: @cart_itemable,
+          quantity: 0
+     ) %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@cart_item.cart) do %>
+     <%= component "cart_info", cart: @cart_item.cart %>
+<% end %>

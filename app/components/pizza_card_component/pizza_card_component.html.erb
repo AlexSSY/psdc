@@ -1,0 +1,98 @@
+<%= render CardComponent.new do |card| %>
+
+    <% 
+    card.with_image do
+        link_to helpers.pizza_custom_path_for(k(pizza).default_variant) do
+            render LazyImageComponent.new(image: pizza.image)
+        end
+    end 
+    %>
+
+    <% card.with_title do %>
+        <div class="flex items-baseline justify-between grow gap-3">
+            <span class="text-2xl font-semibold mb-8 block">
+                <%= pizza.name %>
+            </span>
+            
+            <div class="relative inline-block group">
+                <span class="block text-xs group text-zinc-600 bg-zinc-100 px-3 
+                    py-1 rounded-full cursor-pointer select-none">
+                    Ingredients
+                </span>
+                
+                <div class="absolute left-0 top-full mt-2 hidden group-hover:block
+                    rounded-md bg-gray-900 text-white text-sm p-2 shadow-lg z-50"
+                >
+                    <% k(pizza).ingredients.each do |ingredient_name| %>
+                        <p class="whitespace-nowrap">
+                            <%= ingredient_name %>
+                        </p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+
+    <% card.with_body do %>
+        <div
+            data-controller="pizza-variant-select"
+            data-pizza-variant-select-map-value="<%= k(pizza).json_variants_map %>"
+            data-pizza-variant-select-default-key-value="<%= k(k(pizza).default_variant).json_map_key %>"
+        >
+            <%# PizzaSize Selector %>
+            <select
+                name="pizza_size_id"
+                class="w-full border rounded border-zinc-300 px-3 py-1 mb-3"
+                data-action="change->pizza-variant-select#pizzaSizeSelectChange"
+            >
+                <% sizes.each do |pizza_size| %>
+                    <option
+                        value="<%= pizza_size.id %>"
+                        <%= 'selected' if pizza_size.id == pizza.pizza_size_id %>
+                    >
+                        <%= pizza_size.name %>
+                    </option>
+                <% end %>
+            </select>
+
+            <%# PizzaDough Selector %>
+            <div data-controller="switcher" class="flex gap-2 w-full mb-3">
+                <% doughs.each do |pizza_dough| %>
+                    <% is_active = pizza_dough.name == pizza.pizza_dough_name %>
+                    <%= button_tag pizza_dough.name,
+                        class: "variant-button #{'bg-sky-200' if is_active}",
+                        data: {
+                            switcher_target: "button",
+                            action: "pizza-variant-select#doughButtonClick switcher#buttonClick",
+                            dough_id: pizza_dough.id
+                        } %>
+                <% end %>
+            </div>
+
+            <%# PizzaCrust Selector %>
+            <div data-controller="switcher" class="flex gap-2 w-full mb-3">
+                <% is_active = pizza.pizza_crust_id == nil %>
+                <%= button_tag "Without crust",
+                    class: "variant-button #{'bg-sky-200' if is_active}",
+                    data: {
+                        switcher_target: "button",
+                        action: "pizza-variant-select#crustButtonClick switcher#buttonClick",
+                        crust_id: 0
+                    } %>
+                <% crusts.each do |pizza_crust| %>
+                    <% is_active = pizza_crust.name == pizza.pizza_crust_name %>
+                    <%= button_tag pizza_crust.name,
+                        class: "variant-button #{'bg-sky-200' if is_active}",
+                        data: {
+                            switcher_target: "button",
+                            action: "pizza-variant-select#crustButtonClick switcher#buttonClick",
+                            crust_id: pizza_crust.id
+                        } %>
+                <% end %>
+            </div>
+
+            <% variant = k(pizza).default_variant %>
+            <%= render partial: "pizza_variants/card", locals: { variant: } %>
+        </div>
+    <% end %>
+<% end %>
