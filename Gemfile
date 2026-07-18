@@ -74,7 +74,7 @@ gem "mysql2", "~> 0.5.7"
 
 gem "dotenv-rails", "~> 3.2"
 
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 2.0"
 
 gem "view_component", "~> 4.12"
 
