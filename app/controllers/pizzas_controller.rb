@@ -18,7 +18,7 @@ class PizzasController < ApplicationController
   private
 
   def prepare_filters
-    @pizza_filters = PizzaFilters.new(**params.permit(:sort, :sort_by).to_h.symbolize_keys)
+    @pizza_filters = PizzaFilters.new(**params.permit(:sort, :sort_by, ingredients: []).to_h.symbolize_keys)
     @ingredients = PizzaTopCategoryFiltersCalculator.new.call
   end
 

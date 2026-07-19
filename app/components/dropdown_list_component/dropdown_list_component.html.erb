@@ -1,3 +1,16 @@
 <div class="relaive" data-controller="dropdown">
-    
+    <div
+        class="h-12 px-4 flex items-center border border-gray-300 rounded-md"
+        data-dropdown-target="button"
+        data-action="click->dropdown#toggle"
+    >
+        <%= button %>
+    </div>
+    <div data-dropdown-target="menu" class="hidden absolute z-10 mt-6 p-2 rounded-md shadow-lg">
+        <% items.each do |item| %>
+            <div class="bg-white rounded-md shadow-xs">
+                <%= item %>
+            </div>
+        <% end %>
+    </div>
 </div>
