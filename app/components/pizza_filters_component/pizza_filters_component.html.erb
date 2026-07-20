@@ -5,7 +5,7 @@
         controller: "pizza-filters",
         pizza_filters_target: "form"
     } do |f| %> 
-    <select class="py-2 px-4 border border-gray-300 rounded-md flex items-center" name="sort_by" data-action="pizza-filters#submitForm">
+    <select class="py-2 px-4 border border-gray-300 rounded-md flex items-center" name="sort_by">
         <%= options_for_select(
             sort_by_select_items,
             pizza_filters.sort_by) %>
@@ -30,5 +30,7 @@
             <% end %>
         <% end %>
     <% end %>
-    <input type="submit" value="Apply" class="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer">
+    <button data-action="pizza-filters#submitForm" type="button" class="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer">
+        Apply
+    </button>
 <% end %>
