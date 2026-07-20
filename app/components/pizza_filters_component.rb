@@ -4,11 +4,11 @@ class PizzaFiltersComponent < ApplicationComponent
   option :pizza_filters
   option :ingredients
 
-  def price_select_items
-    { "---" => "", "Price" => "price" }
+  def sort_by_select_items
+    { "select" => "", "Price Asc" => "price_asc", "Price Desc" => "price_desc" }
   end
 
-  def sort_by_select_items
-    { "---" => "", "Asc" => "asc", "Desc" => "desc" }
+  def selected_ingredients(category)
+    pizza_filters.ingredients.select { |ingredient| ingredients[category].values.include?(ingredient.to_i) }
   end
 end

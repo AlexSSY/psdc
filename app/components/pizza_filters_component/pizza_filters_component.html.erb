@@ -4,24 +4,21 @@
     data: {
         controller: "pizza-filters",
         pizza_filters_target: "form"
-    } do |f| %>
-    <select name="sort_by" data-action="pizza-filters#submitForm">
-        <%= options_for_select(
-            price_select_items,
-            pizza_filters.sort_by) %>
-    </select>
-    <select name="sort" data-action="pizza-filters#submitForm">
+    } do |f| %> 
+    <select class="py-2 px-4 border border-gray-300 rounded-md flex items-center" name="sort_by" data-action="pizza-filters#submitForm">
         <%= options_for_select(
             sort_by_select_items,
-            pizza_filters.sort) %>
+            pizza_filters.sort_by) %>
     </select>
     <% ingredients.each_pair do |category, items| %>
         <%= render DropdownListComponent.new do |dropdown| %>
             <% dropdown.with_button do %>
-                <span class="mr-2"><%= category %></span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
+                <div class="py-2 px-4 border border-gray-300 rounded-md flex items-center">
+                    <span class="mr-2"><%= selected_ingredients(category).size > 0 ? "#{category} (#{selected_ingredients(category).size})" : category %></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </div>
             <% end %>
             <% items.each_pair do |key, value| %>
                 <% dropdown.with_item do %>

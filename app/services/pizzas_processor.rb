@@ -6,12 +6,12 @@ class PizzasProcessor < Rubanok::Processor
     @pizzas_table ||= Pizza.arel_table
   end
 
-  match :sort_by, :sort do
-    having "price", "asc" do
+  match :sort_by do
+    having "price_asc" do
       raw.order(Arel.sql("total_pizza_price ASC"))
     end
 
-    having "price", "desc" do
+    having "price_desc" do
       raw.order(Arel.sql("total_pizza_price DESC"))
     end
   end

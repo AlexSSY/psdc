@@ -11,7 +11,7 @@ export default class extends Controller {
   }
 
   loaded() {
-    this.placeholderTarget.remove()
+    this.placeholderTarget.classList.add("hidden")
     this.imageTarget.classList.remove("opacity-0")
   }
 }
