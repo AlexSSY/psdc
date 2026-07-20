@@ -5,6 +5,10 @@
      ) %>
 <% end %>
 
+<%= turbo_stream.replace "header_cart" do %>
+     <%= render HeaderCartComponent.new(cart: @cart_item.cart) %>
+<% end %>
+
 <%= turbo_stream.replace dom_id(@cart_item.cart) do %>
      <%= component "cart_info", cart: @cart_item.cart %>
 <% end %>

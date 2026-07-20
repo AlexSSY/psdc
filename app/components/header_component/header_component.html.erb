@@ -9,7 +9,7 @@
             <%= render HeaderMenuComponent.new(current_path: request.path) %>
             
             <%# Cart & Authentication %>
-            <%= render HeaderCartComponent.new %>
+            <%= render HeaderCartComponent.new(cart: current_cart) %>
 
         </div>
     </div>

@@ -1,1 +1,8 @@
-<%= helpers.icon 'shopping-cart', class: "size-6 text-white" %>
+<%= helpers.turbo_frame_tag "header_cart" do %>
+    <div class="relative">
+        <%= helpers.link_to helpers.show_cart_path, data: { turbo_stream: true }, class: "flex items-center space-x-2" do %>
+            <%= helpers.icon 'shopping-cart', class: "size-6 text-white" %>
+            <span class="bg-red-500 text-white rounded-full px-2 py-1 text-xs"><%= k(cart).items_count %></span>
+        <% end %>
+    </div>
+<% end %>

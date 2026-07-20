@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "/pizza_variants/variant_partial/:id", controller: :pizza_variants, action: :variant_partial, as: "pizza_variants_variant_partial"
   delete "/cart_items/destroy_all", controller: :cart_items, action: :destroy_all, as: "cart_items_destroy_all"
   delete "/cart", controller: :carts, action: :clear, as: "clear_cart"
+  get "/cart", controller: :carts, action: :show, as: "show_cart"
   scope "pizza" do
     get "constructor/new", controller: :pizza_customs, action: :new, as: "new_pizza_custom"
     post "constructor", controller: :pizza_customs, action: :create, as: "pizza_custom"
