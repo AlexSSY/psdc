@@ -1,7 +1,8 @@
 <%= turbo_frame_tag dom_id(variant.pizza) do %>
     <div class="space-y-3">
         <%= link_to "Replace ingredients",
-            pizza_custom_path_for(variant),
+            # pizza_custom_path_for(variant),
+            "#",
             class: "border border-red-700 px-3 py-2 rounded-full text-center block" %>
         <div class="flex items-center justify-between">
             <span class="text-xl font-semibold">

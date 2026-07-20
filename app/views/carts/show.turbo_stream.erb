@@ -4,11 +4,27 @@
       data-controller="cart"
       data-action="click->cart#close"
       data-cart-target="background"
-      class="fixed top-0 left-0 right-1 bottom-1 bg-black/20"
+      class="fixed inset-0 bg-black/70 flex items-center justify-center"
     >
-      <div class="flex flex-col gap-4">
-        <h1 class="text-2xl font-bold">Your Cart</h1>
-        <p class="text-gray-600">Review your items before checking out.</p>
+      <div class="flex flex-col gap-4 bg-white rounded-2xl p-4 w-1/2 h-2/3">
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-bold">Your Cart</h1>
+          <%= icon "x-mark", class: "cursor-pointer size-6", data: { action: "click->cart#close" } %>
+        </div>
+        <%= button_to "Clear",
+          clear_cart_path,
+          class: "text-red-500 underline cursor-pointer",
+          data: {
+          turbo_confirm: "Are you sure?",
+          turbo_stream: true
+          },
+          method: :delete %>
+          <span>Cart items:</span>
+          <div id="cart_items" class="flex flex-col gap-3 overflow-y-auto">
+          <% current_cart.cart_items.each do |cart_item| %>
+              <%= cart_item_for cart_item %>
+          <% end %>
+          </div>
       </div>
     </div>
   <% end %>

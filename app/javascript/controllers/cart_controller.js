@@ -6,7 +6,8 @@ export default class extends Controller {
 
   connect() {}
 
-  close() {
+  close(event) {
+    if (event.target !== event.currentTarget) return
     this.backgroundTarget.remove()
   }
 }

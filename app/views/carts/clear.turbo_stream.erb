@@ -8,7 +8,7 @@
 <% end %>
 
 <%= turbo_stream.replace "header_cart" do %>
-     <%= render HeaderCartComponent.new(cart: @cart_item.cart) %>
+     <%= render HeaderCartComponent.new(cart: current_cart) %>
 <% end %>
 
 <%= turbo_stream.replace dom_id(current_cart) do %>

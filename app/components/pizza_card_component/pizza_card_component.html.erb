@@ -2,7 +2,8 @@
 
     <% 
     card.with_image do
-        link_to helpers.pizza_custom_path_for(k(pizza).default_variant) do
+        # link_to helpers.pizza_custom_path_for(k(pizza).default_variant) do
+        link_to "#" do
             render LazyImageComponent.new(image: pizza.image)
         end
     end 
