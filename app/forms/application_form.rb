@@ -2,6 +2,16 @@ class ApplicationForm
   include ActiveModel::API
   include ActiveModel::Attributes
 
+  class << self
+    delegate :from, to: :new
+  end
+
+  def from(params)
+    attr_list = self.class.attribute_names.map(&:to_sym)
+    assign_attributes(params.permit(**attr_list))
+    self
+  end
+
   def save
     return false unless valid?
 

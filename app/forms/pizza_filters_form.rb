@@ -1,0 +1,2 @@
+class PizzaFiltersForm < ApplicationForm
+end
