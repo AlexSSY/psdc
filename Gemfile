@@ -64,7 +64,7 @@ group :development do
   gem "listen"
 end
 
-gem "tailwindcss-rails", "~> 4.4"
+gem "tailwindcss-rails", "~> 4.6"
 
 gem "rails_icons", "~> 1.8"
 
