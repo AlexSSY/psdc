@@ -66,7 +66,7 @@ end
 
 gem "tailwindcss-rails", "~> 4.4"
 
-gem "rails_icons", "~> 1.8"
+gem "rails_icons", "~> 1.9"
 
 gem "nice_partials", "~> 0.10.1"
 
