@@ -2,6 +2,9 @@ class ApplicationForm
   include ActiveModel::API
   include ActiveModel::Attributes
 
+  define_callbacks :save, only: :after
+  define_callbacks :commit, only: :after
+
   class << self
     delegate :from, to: :new
   end

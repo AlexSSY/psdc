@@ -1,2 +1,0 @@
-class PizzaFiltersForm < ApplicationForm
-end

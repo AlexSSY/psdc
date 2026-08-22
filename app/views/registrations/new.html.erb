@@ -1,0 +1,8 @@
+<b>here registration form</b>
+
+<%= form_for @form, registration_path do |f| %>
+    <%= f.field_for :email %>
+    <%= f.field_for :password %>
+    <%= f.field_for :password_confirmation %>
+    <%= f.submit %>
+<% end %>

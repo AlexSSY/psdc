@@ -23,4 +23,5 @@ Rails.application.routes.draw do
     get "constructor/new", controller: :pizza_customs, action: :new, as: "new_pizza_custom"
     post "constructor", controller: :pizza_customs, action: :create, as: "pizza_custom"
   end
+  resource :registration, only: [ :new, :create ]
 end
