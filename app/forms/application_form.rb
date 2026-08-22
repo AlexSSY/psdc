@@ -7,11 +7,21 @@ class ApplicationForm
 
   class << self
     delegate :from, to: :new
+
+    def model_name
+      @model_name ||= ActiveModel::Name.new(nil, nil, self.name.sub(/Form$/, ""))
+    end
+
+    def model_name=(name)
+      @model_name = ActiveModel::Name.new(nil, nil, name)
+    end
   end
+
+  delegate :model_name, to: :class
 
   def from(params)
     attr_list = self.class.attribute_names.map(&:to_sym)
-    assign_attributes(params.permit(**attr_list))
+    assign_attributes(params.permit(*attr_list))
     self
   end
 
@@ -29,5 +39,11 @@ class ApplicationForm
 
   def submit!
     raise NotImplementedError
+  end
+
+  def merge_errors!(other)
+    other.errors.each do |e|
+      errors.add(e.attribute, e.type, message: e.message)
+    end
   end
 end

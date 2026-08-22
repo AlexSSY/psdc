@@ -26,6 +26,14 @@
     
     <%= render HeaderComponent.new(current_cart:) %>
 
+    <% if flash.notice %>
+      <%= flash.notice %>
+    <% end %>
+
+    <% if flash.alert %>
+      <%= flash.alert %>
+    <% end %>
+
     <div class="container mx-auto mt-12">
       <%= yield %>
     </div>

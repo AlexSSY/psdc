@@ -1,8 +1,30 @@
 <b>here registration form</b>
 
-<%= form_for @form, registration_path do |f| %>
-    <%= f.field_for :email %>
-    <%= f.field_for :password %>
-    <%= f.field_for :password_confirmation %>
-    <%= f.submit %>
+<%= form_for @form do |f| %>
+    <div class="max-w-100 mx-auto">
+        <div class="mb-4 flex flex-col">
+            <%= f.label :email, class: "mb-2" %>
+            <%= f.text_field :email, class: "rounded-xl py-2 px-3 border border-black/20" + (@form.errors.full_messages_for(:email).any? ? " border-red-500" : "") %>
+            <% @form.errors.full_messages_for(:email).each do |error| %>
+                <span class="text-red-500 text-sm block"><%= error %></span>
+            <% end %>
+        </div>
+        <div class="mb-4 flex flex-col">
+            <%= f.label :password, class: "mb-2" %>
+            <%= f.password_field :password, class: "rounded-xl py-2 px-3 border border-black/20" + (@form.errors.full_messages_for(:password).any? ? " border-red-500" : "") %>
+            <% @form.errors.full_messages_for(:password).each do |error| %>
+                <span class="text-red-500 text-sm block"><%= error %></span>
+            <% end %>
+        </div>
+        <div class="mb-4 flex flex-col">
+            <%= f.label :password_confirmation, class: "mb-2" %>
+            <%= f.password_field :password_confirmation, class: "rounded-xl py-2 px-3 border border-black/20" + (@form.errors.full_messages_for(:password_confirmation).any? ? " border-red-500" : "") %>
+            <% @form.errors.full_messages_for(:password_confirmation).each do |error| %>
+                <span class="text-red-500 text-sm block"><%= error %></span>
+            <% end %>
+        </div>
+        <div class="flex justify-end w-full">
+            <%= f.submit "Register", class: "bg-red-500 text-white px-4 py-3 rounded-full cursor-pointer" %>
+        </div>
+    </div>
 <% end %>
