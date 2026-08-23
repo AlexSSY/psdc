@@ -7,5 +7,9 @@
             <% end %>
         </div>
     <% end %>
-    <%= link_to "Register", new_registrations_path, class: "rounded-xl px-5 py-2 ring-2 ring-red-200 text-white" %>
+    <% unless user_signed_in? %>
+        <%= link_to "Register", new_registrations_path, class: "rounded-xl px-5 py-2 ring-2 ring-red-200 text-white" %>
+    <% else %>
+        <%= button_to "Log Out", logins_path, method: :delete, class: "text-white" %>
+    <% end %>
 </div>

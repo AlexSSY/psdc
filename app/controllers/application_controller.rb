@@ -3,7 +3,20 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :set_cart
+
   helper_method :current_cart
+  helper_method :current_user
+  helper_method :user_signed_in?
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  def user_signed_in? = current_user.present?
+
+  def authenticate_user!
+    redirect_to :new_logins_path unless user_signed_in?
+  end
 
   private
 

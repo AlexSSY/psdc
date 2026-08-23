@@ -24,4 +24,5 @@ Rails.application.routes.draw do
     post "constructor", controller: :pizza_customs, action: :create, as: "pizza_custom"
   end
   resource :registrations, only: [ :new, :create ]
+  resource :logins, only: [ :new, :create, :destroy ]
 end
