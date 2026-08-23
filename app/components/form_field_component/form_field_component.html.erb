@@ -1,0 +1,19 @@
+<div class="mb-4 flex flex-col w-full">
+  <%= builder.label attribute, class: "mb-2" %>
+
+  <%= builder.public_send(
+        "#{type}_field",
+        attribute,
+        class: input_classes
+      ) %>
+
+  <% if invalid? %>
+    <div class="w-full flex flex-col">
+      <% errors.each do |error| %>
+        <span class="text-red-500 text-sm block">
+          <%= error %>
+        </span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

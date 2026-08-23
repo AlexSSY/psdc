@@ -6,7 +6,9 @@ class ApplicationForm
   define_callbacks :commit, only: :after
 
   class << self
-    delegate :from, to: :new
+    def from(params)
+      new(params.permit(attribute_names.map(&:to_sym)))
+    end
 
     def model_name
       @model_name ||= ActiveModel::Name.new(nil, nil, self.name.sub(/Form$/, ""))
@@ -18,12 +20,6 @@ class ApplicationForm
   end
 
   delegate :model_name, to: :class
-
-  def from(params)
-    attr_list = self.class.attribute_names.map(&:to_sym)
-    assign_attributes(params.permit(*attr_list))
-    self
-  end
 
   def save
     return false unless valid?

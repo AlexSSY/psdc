@@ -1,15 +1,14 @@
 class RegistrationForm < ApplicationForm
-  attribute :email
-  attribute :password
-  attribute :password_confirmation
+  attribute :email, :string
+  attribute :password, :string
+  attribute :password_confirmation, :string
 
   validate :user_is_valid
 
   attr_reader :user
 
   def initialize(...)
-    super(...)
-    debugger
+    super
     @user = User.new(email:, password:, password_confirmation:)
   end
 
@@ -19,12 +18,6 @@ class RegistrationForm < ApplicationForm
   end
 
   def submit!
-    # user.assign(
-    #   email: email,
-    #   password: password,
-    #   password_confirmation: password_confirmation
-    # )
-
     user.save!
   end
 end

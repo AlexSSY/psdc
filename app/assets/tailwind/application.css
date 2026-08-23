@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-@source "../../components";
+@source "../../components/**/*.rb";
+@source "../../components/**/*.html.erb";
 
 .lazy-image {
   position: relative;
